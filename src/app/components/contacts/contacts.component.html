@@ -1,1 +1,5 @@
-<p>contacts works!</p>
+<div *ngIf="contactBehaviourSubject | async as contacts">
+    <div *ngFor="let contact of contacts">
+        <div>{{contact.name}}</div>
+    </div>
+</div>
