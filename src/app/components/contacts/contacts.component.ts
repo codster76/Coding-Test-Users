@@ -41,17 +41,21 @@ export class ContactsComponent implements OnInit {
     this.contactBehaviourSubject.next(this.contactList);
   }
 
-  openModal(contact: Contact) {
-    if(window.innerWidth < 1000) {
-      this.currentDialog = this.dialog.open(ContactModalComponent, { data: { contact: contact } });
-    }
-  }
-
   displayDetails(contact: Contact) {
+    this.contactList.map((searchedContact) => {
+      if(searchedContact.id === contact.id) {
+        searchedContact.selected = true;
+      } else {
+        searchedContact.selected = false;
+      }
+    });
+
+    this.contactBehaviourSubject.next(this.contactList);
+
     if(window.innerWidth < 1000) {
       this.currentDialog = this.dialog.open(ContactModalComponent, { data: { contact: contact } });
     }
-    
+
     this.detailsBehaviourSubject.next(contact);
   }
 
@@ -67,6 +71,10 @@ export class ContactsComponent implements OnInit {
               contact.email.toLowerCase().includes(filterBy.toLowerCase());
     });
     this.contactBehaviourSubject.next(deepCopyToModify);
+  }
+
+  sortList() {
+    
   }
 
   getInitials(name: string) {

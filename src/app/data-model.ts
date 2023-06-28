@@ -7,6 +7,7 @@ export class Contact {
     phone: string = '';
     website: string = '';
     company: Company = new Company();
+    selected: boolean = false;
 }
 
 export class Address {

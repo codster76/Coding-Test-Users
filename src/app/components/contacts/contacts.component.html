@@ -5,11 +5,12 @@
             <input style="width: 300px" placeholder="Filter by name, username or email" (keyup.enter)="submit()" formControlName="filterValue" />
             <button type="button" (click)="submit()">Filter</button>
         </form>
+        <button (click)="sortList()">Sort</button>
         <br />
         <div class="contacts">
             <div *ngIf="contactBehaviourSubject | async as contacts">
                 <div *ngFor="let contact of contacts">
-                    <div class="contactBox" (click)="displayDetails(contact)">
+                    <div [ngStyle]="{'background-color': contact.selected ? '#82f4fa' : '#cef3f5'}" class="contactBox" (click)="displayDetails(contact)">
                         <span class="dot smallDot">{{getInitials(contact.name)}}</span>
                         <div>
                             <div>{{contact.name}}</div>

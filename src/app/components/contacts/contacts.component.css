@@ -6,12 +6,15 @@
 
 .contactList {
     flex: 1;
+    background-color: #cef3f5;
+    height: 100%;
 }
 
 .detailDisplay {
     flex: 2;
-    margin-top: 45px;
-    margin-left: 20px;
+    padding-top: 45px;
+    padding-left: 20px;
+    background-color: #82f4fa;
 }
 
 .detailSections {
