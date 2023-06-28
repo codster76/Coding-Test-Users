@@ -8,12 +8,14 @@ import { AppComponent } from './app.component';
 import { ContactsComponent } from './components/contacts/contacts.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ContactModalComponent } from './components/contact-modal/contact-modal.component';
+import { PageTemplateComponent } from './components/page-template/page-template.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ContactsComponent,
-    ContactModalComponent
+    ContactModalComponent,
+    PageTemplateComponent
   ],
   imports: [
     BrowserModule,

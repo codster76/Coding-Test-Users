@@ -1,0 +1,53 @@
+.pageContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100vw;
+}
+
+.contactList {
+    flex: 1;
+    background-color: red;
+}
+
+.detailDisplay {
+    flex: 2;
+    background-color: blue;
+}
+
+.contacts {
+    width: 80%;
+}
+
+.columnGroup {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    cursor: pointer;
+}
+
+.columnGroupHeading {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.col {
+    flex: 1;
+    word-wrap: break-word;
+}
+
+.colMobileDisplay {
+    flex: 1;
+    word-wrap: break-word;
+}
+
+.columnGroup:hover {
+    background-color: grey;
+}
+
+@media (max-width: 1000px) {
+    .col {
+        display: none;
+    }
+}

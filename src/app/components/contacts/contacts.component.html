@@ -1,10 +1,26 @@
 <h1>Contacts</h1>
-<form [formGroup]="filterFormGroup">
-    <input placeholder="Filter" (keyup.enter)="submit()" formControlName="filterValue" />
-    <button type="button" (click)="submit()">Filter</button>
-</form>
-<div *ngIf="contactBehaviourSubject | async as contacts">
-    <div *ngFor="let contact of contacts">
-        <div (click)="openModal(contact)">{{contact.name}} ({{contact.username}})</div>
-    </div>
+<div class="pageContent">
+        <form [formGroup]="filterFormGroup">
+            <input style="width: 300px" placeholder="Filter by name, username or email" (keyup.enter)="submit()" formControlName="filterValue" />
+            <button type="button" (click)="submit()">Filter</button>
+        </form>
+        <br />
+        <div class="contacts">
+            <div class="columnGroupHeading">
+                <div class="colMobileDisplay">Name</div>
+                <div class="col">Username</div>
+                <div class="col">Email</div>
+                <div class="colMobileDisplay">Phone</div>
+            </div>
+            <div *ngIf="contactBehaviourSubject | async as contacts">
+                <div *ngFor="let contact of contacts">
+                    <div class="columnGroup" (click)="openModal(contact)">
+                        <div class="colMobileDisplay">{{contact.name}}</div>
+                        <div class="col">{{contact.username}}</div>
+                        <div class="col">{{contact.email}}</div>
+                        <div class="colMobileDisplay">{{contact.phone}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
 </div>

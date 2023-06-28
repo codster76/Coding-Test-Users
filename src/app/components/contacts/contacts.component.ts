@@ -51,7 +51,9 @@ export class ContactsComponent implements OnInit {
   filterList(filterBy: string) {
     let deepCopyToModify: Contact[] = JSON.parse(JSON.stringify(this.contactList));
     deepCopyToModify = deepCopyToModify.filter((contact: Contact) => {
-      return contact.name.toLowerCase().includes(filterBy.toLowerCase());
+      return  contact.name.toLowerCase().includes(filterBy.toLowerCase()) ||
+              contact.username.toLowerCase().includes(filterBy.toLowerCase()) ||
+              contact.email.toLowerCase().includes(filterBy.toLowerCase());
     });
     this.contactBehaviourSubject.next(deepCopyToModify);
   }
