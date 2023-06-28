@@ -1,5 +1,5 @@
 <div *ngIf="contactBehaviourSubject | async as contacts">
     <div *ngFor="let contact of contacts">
-        <div>{{contact.name}}</div>
+        <div (click)="openModal(contact)">{{contact.name}} ({{contact.username}})</div>
     </div>
 </div>
