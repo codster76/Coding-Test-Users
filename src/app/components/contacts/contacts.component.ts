@@ -4,6 +4,7 @@ import { BackendCallsService } from 'src/app/services/backend-calls.service';
 import { BehaviorSubject } from 'rxjs';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ContactModalComponent } from '../contact-modal/contact-modal.component';
+import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-contacts',
@@ -18,6 +19,10 @@ export class ContactsComponent implements OnInit {
   currentDialog?: MatDialogRef<ContactModalComponent>;
 
   failed = false;
+
+  filterFormGroup: FormGroup = new FormGroup({
+    filterValue: new FormControl()
+  });
 
   constructor(private backendCalls: BackendCallsService, public dialog: MatDialog) { }
 
@@ -37,6 +42,18 @@ export class ContactsComponent implements OnInit {
 
   openModal(contact: Contact) {
     this.currentDialog = this.dialog.open(ContactModalComponent, { data: { contact: contact } });
+  }
+
+  submit() {
+    this.filterList(this.filterFormGroup.value.filterValue);
+  }
+
+  filterList(filterBy: string) {
+    let deepCopyToModify: Contact[] = JSON.parse(JSON.stringify(this.contactList));
+    deepCopyToModify = deepCopyToModify.filter((contact: Contact) => {
+      return contact.name.toLowerCase().includes(filterBy.toLowerCase());
+    });
+    this.contactBehaviourSubject.next(deepCopyToModify);
   }
 
   printContacts() {

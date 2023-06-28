@@ -1,0 +1,37 @@
+.modal-content {
+    width: 50vw;
+    height: 50vh;
+    word-wrap: break-word;
+}
+
+.modal-body {
+    display: flex;
+    flex-direction: row;
+}
+
+.left-block {
+    width: 50%;
+}
+
+.right-block {
+    width: 50%;
+}
+
+@media (max-width: 1000px) {
+    .modal-content {
+        width: 70vw;
+        height: 50vh;
+    }
+
+    .modal-body {
+        flex-direction: column;
+    }
+
+    .left-block {
+        width: 100%;
+    }
+    
+    .right-block {
+        width: 100%;
+    }
+}

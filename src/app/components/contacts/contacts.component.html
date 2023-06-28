@@ -1,3 +1,8 @@
+<h1>Contacts</h1>
+<form [formGroup]="filterFormGroup">
+    <input placeholder="Filter" (keyup.enter)="submit()" formControlName="filterValue" />
+    <button type="button" (click)="submit()">Filter</button>
+</form>
 <div *ngIf="contactBehaviourSubject | async as contacts">
     <div *ngFor="let contact of contacts">
         <div (click)="openModal(contact)">{{contact.name}} ({{contact.username}})</div>

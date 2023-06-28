@@ -1,1 +1,27 @@
-<div>{{data.contact.name}}</div>
+<div class="modal-content">
+    <h1>{{data.contact.name}}</h1>
+    <div class="modal-body">
+        <div class="left-block">
+            <h2>General Information</h2>
+            <div>Username: {{data.contact.username}}</div>
+            <div>Email: {{data.contact.email}}</div>
+            <div>Phone: {{data.contact.phone}}</div>
+            <div>Website: {{data.contact.website}}</div>
+            <br />
+        </div>
+        <div class="right-block">
+            <h2>Address</h2>
+            <div>Home: {{data.contact.address.suite}} {{data.contact.address.street}}, {{data.contact.address.city}}</div>
+            <div>Zipcode: {{data.contact.address.zipcode}}</div>
+            <div>Latitude: {{data.contact.address.geo.lat}}</div>
+            <div>Longitude: {{data.contact.address.geo.lng}}</div>
+            <br />
+
+            <h2>Company</h2>
+            <div>Company Name: {{data.contact.company.name}}</div>
+            <div>Catchphrase: {{data.contact.company.catchPhrase}}</div>
+            <div>Business Service: {{data.contact.company.bs}}</div>
+            <br />
+        </div>
+    </div>
+</div>
