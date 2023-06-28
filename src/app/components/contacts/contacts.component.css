@@ -1,53 +1,64 @@
 .pageContent {
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    flex-direction: row;
     width: 100vw;
 }
 
 .contactList {
     flex: 1;
-    background-color: red;
 }
 
 .detailDisplay {
     flex: 2;
-    background-color: blue;
+    margin-top: 45px;
+    margin-left: 20px;
+}
+
+.detailSections {
+    display: flex;
+    flex-direction: row;
 }
 
 .contacts {
-    width: 80%;
-}
-
-.columnGroup {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    cursor: pointer;
-}
-
-.columnGroupHeading {
-    display: flex;
-    flex-direction: row;
     width: 100%;
 }
 
-.col {
-    flex: 1;
-    word-wrap: break-word;
+.contactBox {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    height: 60px;
+    background-color: #cef3f5;
 }
 
-.colMobileDisplay {
-    flex: 1;
-    word-wrap: break-word;
+.contactBox:hover {
+    background-color: #82f4fa;
 }
 
-.columnGroup:hover {
-    background-color: grey;
+.dot {
+    background-color: #bbb;
+    border-radius: 50%;
+    margin-right: 10px;
+    margin-left: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.bigDot {
+    height: 100px;
+    width: 100px;
+    font-size: 45px;
+}
+
+.smallDot {
+    height: 50px;
+    width: 50px;
 }
 
 @media (max-width: 1000px) {
-    .col {
+    .detailDisplay {
         display: none;
     }
 }

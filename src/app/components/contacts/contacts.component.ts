@@ -15,6 +15,7 @@ export class ContactsComponent implements OnInit {
 
   contactList: Contact[] = [];
   contactBehaviourSubject: BehaviorSubject<Contact[]> = new BehaviorSubject([new Contact()]);
+  detailsBehaviourSubject: BehaviorSubject<Contact> = new BehaviorSubject(new Contact());
 
   currentDialog?: MatDialogRef<ContactModalComponent>;
 
@@ -41,7 +42,17 @@ export class ContactsComponent implements OnInit {
   }
 
   openModal(contact: Contact) {
-    this.currentDialog = this.dialog.open(ContactModalComponent, { data: { contact: contact } });
+    if(window.innerWidth < 1000) {
+      this.currentDialog = this.dialog.open(ContactModalComponent, { data: { contact: contact } });
+    }
+  }
+
+  displayDetails(contact: Contact) {
+    if(window.innerWidth < 1000) {
+      this.currentDialog = this.dialog.open(ContactModalComponent, { data: { contact: contact } });
+    }
+    
+    this.detailsBehaviourSubject.next(contact);
   }
 
   submit() {
@@ -58,8 +69,22 @@ export class ContactsComponent implements OnInit {
     this.contactBehaviourSubject.next(deepCopyToModify);
   }
 
+  getInitials(name: string) {
+    let splitName;
+    try {
+      splitName = name.split(' ');
+    } catch {
+      throw "Invalid input";
+    }
+
+    if(splitName.length < 2) {
+      return name.charAt(0).toUpperCase();
+    } else {
+      return splitName[0].charAt(0).toUpperCase() + splitName[1].charAt(0).toUpperCase();
+    }
+  }
+
   printContacts() {
     console.log(this.contactList);
   }
-
 }

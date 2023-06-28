@@ -1,26 +1,57 @@
 <h1>Contacts</h1>
 <div class="pageContent">
+    <div class="contactList">
         <form [formGroup]="filterFormGroup">
             <input style="width: 300px" placeholder="Filter by name, username or email" (keyup.enter)="submit()" formControlName="filterValue" />
             <button type="button" (click)="submit()">Filter</button>
         </form>
         <br />
         <div class="contacts">
-            <div class="columnGroupHeading">
-                <div class="colMobileDisplay">Name</div>
-                <div class="col">Username</div>
-                <div class="col">Email</div>
-                <div class="colMobileDisplay">Phone</div>
-            </div>
             <div *ngIf="contactBehaviourSubject | async as contacts">
                 <div *ngFor="let contact of contacts">
-                    <div class="columnGroup" (click)="openModal(contact)">
-                        <div class="colMobileDisplay">{{contact.name}}</div>
-                        <div class="col">{{contact.username}}</div>
-                        <div class="col">{{contact.email}}</div>
-                        <div class="colMobileDisplay">{{contact.phone}}</div>
+                    <div class="contactBox" (click)="displayDetails(contact)">
+                        <span class="dot smallDot">{{getInitials(contact.name)}}</span>
+                        <div>
+                            <div>{{contact.name}}</div>
+                            <div style="margin-left: 8px">{{contact.company.name}}</div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+    <div class="detailDisplay">
+        <div *ngIf="detailsBehaviourSubject | async as contact">
+            <div>
+                <h2>{{contact.name}}</h2>
+                <span class="dot bigDot">{{getInitials(contact.name)}}</span>
+                <br />
+            </div>
+            <div class="detailSections">
+                <div style="flex: 1">
+                    <h2>General Information</h2>
+                    <div>Username: {{contact.username}}</div>
+                    <div>Email: {{contact.email}}</div>
+                    <div>Phone: {{contact.phone}}</div>
+                    <div>Website: {{contact.website}}</div>
+                    <br />
+                </div>
+                <div style="flex: 1">
+                    <h2>Address</h2>
+                    <div>Home: {{contact.address.suite}} {{contact.address.street}}, {{contact.address.city}}</div>
+                    <div>Zipcode: {{contact.address.zipcode}}</div>
+                    <div>Latitude: {{contact.address.geo.lat}}</div>
+                    <div>Longitude: {{contact.address.geo.lng}}</div>
+                    <br />
+                </div>
+                <div style="flex: 1">
+                    <h2>Company</h2>
+                    <div>Company Name: {{contact.company.name}}</div>
+                    <div>Catchphrase: {{contact.company.catchPhrase}}</div>
+                    <div>Business Service: {{contact.company.bs}}</div>
+                    <br />
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
