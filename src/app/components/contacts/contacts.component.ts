@@ -5,6 +5,7 @@ import { BehaviorSubject } from 'rxjs';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ContactModalComponent } from '../contact-modal/contact-modal.component';
 import { FormGroup, FormControl } from '@angular/forms';
+import { UtilitiesService } from 'src/app/services/utilities.service';
 
 @Component({
   selector: 'app-contacts',
@@ -13,19 +14,24 @@ import { FormGroup, FormControl } from '@angular/forms';
 })
 export class ContactsComponent implements OnInit {
 
-  contactList: Contact[] = [];
+  originalContactList: Contact[] = [];
+  contactList: Contact[] = []; // This is necessary so that the list can be modified while sorted/filtered
   contactBehaviourSubject: BehaviorSubject<Contact[]> = new BehaviorSubject([new Contact()]);
   detailsBehaviourSubject: BehaviorSubject<Contact> = new BehaviorSubject(new Contact());
+  selectedID: number = 0;
 
   currentDialog?: MatDialogRef<ContactModalComponent>;
 
   failed = false;
 
+  ascending = true;
+  currentFilterValue: string = '';
+
   filterFormGroup: FormGroup = new FormGroup({
     filterValue: new FormControl()
   });
 
-  constructor(private backendCalls: BackendCallsService, public dialog: MatDialog) { }
+  constructor(private backendCalls: BackendCallsService, public dialog: MatDialog, public utilitiesService: UtilitiesService) { }
 
   ngOnInit(): void {
     try {
@@ -36,12 +42,19 @@ export class ContactsComponent implements OnInit {
   }
 
   async getContacts() {
-    this.contactList = await this.backendCalls.getContacts();
+    this.originalContactList = await this.backendCalls.getContacts();
+    this.contactList = this.sortAndFilterList(this.originalContactList, '');
+
+    this.contactList[0].selected = true;
+    this.selectedID = this.contactList[0].id;
+    this.detailsBehaviourSubject.next(this.contactList[0]);
 
     this.contactBehaviourSubject.next(this.contactList);
   }
 
   displayDetails(contact: Contact) {
+    this.selectedID = contact.id;
+
     this.contactList.map((searchedContact) => {
       if(searchedContact.id === contact.id) {
         searchedContact.selected = true;
@@ -60,39 +73,53 @@ export class ContactsComponent implements OnInit {
   }
 
   submit() {
-    this.filterList(this.filterFormGroup.value.filterValue);
+    this.currentFilterValue = this.filterFormGroup.value.filterValue;
+    this.contactList = this.sortAndFilterList(this.originalContactList, this.currentFilterValue);
+    this.contactBehaviourSubject.next(this.contactList);
   }
 
-  filterList(filterBy: string) {
-    let deepCopyToModify: Contact[] = JSON.parse(JSON.stringify(this.contactList));
+  sortAndFilterList(contactsToSortAndFilter: Contact[], filterBy: string) {
+    let deepCopyToModify: Contact[] = JSON.parse(JSON.stringify(contactsToSortAndFilter));
+
     deepCopyToModify = deepCopyToModify.filter((contact: Contact) => {
-      return  contact.name.toLowerCase().includes(filterBy.toLowerCase()) ||
-              contact.username.toLowerCase().includes(filterBy.toLowerCase()) ||
-              contact.email.toLowerCase().includes(filterBy.toLowerCase());
+      return contact.name.toLowerCase().includes(filterBy.toLowerCase());
     });
-    this.contactBehaviourSubject.next(deepCopyToModify);
-  }
 
-  sortList() {
-    
-  }
+    // Sort based on the ascending variable
+    deepCopyToModify.sort((a: Contact, b: Contact) => {
+      let first;
+      let second;
+      if(this.ascending) {
+        first = a.name;
+        second = b.name;
+      } else {
+        first = b.name;
+        second = a.name;
+      }
 
-  getInitials(name: string) {
-    let splitName;
-    try {
-      splitName = name.split(' ');
-    } catch {
-      throw "Invalid input";
-    }
+      return first.localeCompare(second);
+    });
 
-    if(splitName.length < 2) {
-      return name.charAt(0).toUpperCase();
-    } else {
-      return splitName[0].charAt(0).toUpperCase() + splitName[1].charAt(0).toUpperCase();
-    }
+    deepCopyToModify.map((contact: Contact) => {
+      if(contact.id === this.selectedID) {
+        contact.selected = true;
+      }
+    })
+
+    return deepCopyToModify;
   }
 
   printContacts() {
     console.log(this.contactList);
+  }
+
+  printColour() {
+    console.log(this.utilitiesService.generateColourFromName('colour'));
+  }
+
+  toggleSort() {
+    this.ascending = !this.ascending;
+    this.contactList = this.sortAndFilterList(this.originalContactList, this.currentFilterValue);
+    this.contactBehaviourSubject.next(this.contactList);
   }
 }

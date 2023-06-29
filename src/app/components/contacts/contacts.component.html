@@ -1,17 +1,17 @@
 <h1>Contacts</h1>
 <div class="pageContent">
     <div class="contactList">
-        <form [formGroup]="filterFormGroup">
-            <input style="width: 300px" placeholder="Filter by name, username or email" (keyup.enter)="submit()" formControlName="filterValue" />
-            <button type="button" (click)="submit()">Filter</button>
-        </form>
-        <button (click)="sortList()">Sort</button>
-        <br />
+        <div class="sortAndFilter">
+            <mat-icon class="searchButton" (click)="toggleSort()">sort_by_alpha</mat-icon>
+            <form style="width: 100%;" [formGroup]="filterFormGroup">
+                <input class="filterBox" placeholder="Search contacts" (keyup)="submit()" formControlName="filterValue" />
+            </form>
+        </div>
         <div class="contacts">
             <div *ngIf="contactBehaviourSubject | async as contacts">
                 <div *ngFor="let contact of contacts">
                     <div [ngStyle]="{'background-color': contact.selected ? '#82f4fa' : '#cef3f5'}" class="contactBox" (click)="displayDetails(contact)">
-                        <span class="dot smallDot">{{getInitials(contact.name)}}</span>
+                        <span class="dot smallDot" [ngStyle]="{ 'background-color': utilitiesService.generateColourFromName(contact.name, 50) }">{{utilitiesService.getInitials(contact.name)}}</span>
                         <div>
                             <div>{{contact.name}}</div>
                             <div style="margin-left: 8px">{{contact.company.name}}</div>
@@ -25,7 +25,7 @@
         <div *ngIf="detailsBehaviourSubject | async as contact">
             <div>
                 <h2>{{contact.name}}</h2>
-                <span class="dot bigDot">{{getInitials(contact.name)}}</span>
+                <span class="dot bigDot" [ngStyle]="{ 'background-color': utilitiesService.generateColourFromName(contact.name, 50) }">{{utilitiesService.getInitials(contact.name)}}</span>
                 <br />
             </div>
             <div class="detailSections">
