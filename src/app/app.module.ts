@@ -10,13 +10,15 @@ import { ContactsComponent } from './components/contacts/contacts.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ContactModalComponent } from './components/contact-modal/contact-modal.component';
 import { PageTemplateComponent } from './components/page-template/page-template.component';
+import { InfoComponent } from './components/info/info.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ContactsComponent,
     ContactModalComponent,
-    PageTemplateComponent
+    PageTemplateComponent,
+    InfoComponent
   ],
   imports: [
     BrowserModule,

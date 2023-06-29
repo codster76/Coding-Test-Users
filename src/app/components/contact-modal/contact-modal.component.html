@@ -1,5 +1,7 @@
 <div class="modal-content">
     <h1>{{data.contact.name}}</h1>
+    <span class="dot bigDot" [ngStyle]="{ 'background-color': utilitiesService.generateColourFromName(data.contact.name, 50) }">{{utilitiesService.getInitials(data.contact.name)}}</span>
+    <br />
     <div class="modal-body">
         <div class="left-block">
             <h2>General Information</h2>

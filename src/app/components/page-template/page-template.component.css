@@ -1,0 +1,31 @@
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 55px;
+    width: 100%;
+    background-color: #22bec7;
+}
+
+.footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 55px;
+    background-color: #22bec7;
+}
+
+.headerText {
+    font-size: 35px;
+    font-weight: 500;
+    padding-left: 10px;
+}
+
+.footerText {
+    padding-left: 10px;
+}
+
+.info {
+    padding-right: 15px;
+    cursor: pointer;
+}

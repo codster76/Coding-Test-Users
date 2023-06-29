@@ -1,0 +1,28 @@
+<div class="pageContent">
+    <h1>Information</h1>
+    <p>Hello, welcome to this demo site for a basic contacts app!</p>
+    <p>This was made by Cody Liu.</p>
+
+    <h2>Features</h2>
+    <h3>Searching</h3>
+    <p>You can search for a contact using by typing into the search bar. It filters by name.</p>
+
+    <h3>Sorting</h3>
+    <p>You can sort your contacts in alphabetical ascending or descending order using the sort button next to the filter field.</p>
+
+    <h3>Responsive Design</h3>
+    <p>This site should display properly on all standard devices. The contact details display switches to modal mode when the screen's width gets too small. Try it.</p>
+
+    <h3>Auto-Generating Default Profile Pictures</h3>
+    <p>You might notice that the contacts have colourful backgrounds for their default profile pictures - these are not random. They are generated based on the contact's name. The colours are based on the alphbetical characters present in their name. Here's the general idea:</p>
+    <p style="padding-left: 10px;">1. The names are split into three roughly equal groups.</p>
+    <p style="padding-left: 10px;">2. Each character is given a value of 0-25, based on its position in the alphabet. (a = 0, z = 25)</p>
+    <p style="padding-left: 10px;">3. The average alphabetical position of the letters of each group is calculated.</p>
+    <p style="padding-left: 10px;">4. This average is converted to a percentage of the way throug the alphabet. (a = 0, z = 1)</p>
+    <p style="padding-left: 10px;">5. This percentage is mapped to a range of 0-255.</p>
+    <p style="padding-left: 10px;">6. These three numbers can then be used as rgb values.</p>
+    <p>Theoretically similar names should have similar colours overall.</p>
+
+    <h3>Site Hosting</h3>
+    <p>This site is hosted on Google Cloud Run.</p>
+</div>

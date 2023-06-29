@@ -17,6 +17,21 @@
     width: 50%;
 }
 
+.dot {
+    border-radius: 50%;
+    margin-right: 10px;
+    margin-left: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.bigDot {
+    height: 100px;
+    width: 100px;
+    font-size: 45px;
+}
+
 @media (max-width: 1000px) {
     .modal-content {
         width: 70vw;

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { InfoComponent } from '../info/info.component';
 
 @Component({
   selector: 'app-page-template',
@@ -7,9 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PageTemplateComponent implements OnInit {
 
-  constructor() { }
+  currentDialog?: MatDialogRef<InfoComponent>;
+
+  constructor(public dialog: MatDialog) { }
 
   ngOnInit(): void {
+  }
+
+  infoButtonPressed() {
+    this.currentDialog = this.dialog.open(InfoComponent);
   }
 
 }

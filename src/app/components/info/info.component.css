@@ -1,0 +1,9 @@
+.pageContent {
+    width: 40vw;
+    height: 80vh;
+    overflow-y: scroll;
+}
+
+h3 {
+    font-weight: 500;
+}

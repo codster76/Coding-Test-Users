@@ -1,7 +1,9 @@
 .pageContent {
     display: flex;
     flex-direction: row;
-    width: 100vw;
+    height: calc(100% - 110px);
+    overflow-y: scroll;
+    background-color: #82f4fa;
 }
 
 .contactList {
@@ -24,6 +26,7 @@
 
 .sortAndFilter {
     margin-top: 5px;
+    margin-bottom: 5px;
     display: flex;
 }
 
@@ -34,6 +37,10 @@
     width: 30px;
     height: 30px;
     border-radius: 5px;
+}
+
+.searchButton:hover {
+    background-color: #82f4fa;
 }
 
 .filterBox {
