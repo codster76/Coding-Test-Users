@@ -3,13 +3,13 @@
         <div class="sortAndFilter">
             <mat-icon class="searchButton" (click)="toggleSort()">sort_by_alpha</mat-icon>
             <form style="width: 100%;" [formGroup]="filterFormGroup">
-                <input class="filterBox" placeholder="Search contacts" (keyup)="submit()" formControlName="filterValue" />
+                <input class="filterBox" placeholder="Search contacts" (keyup)="applySortAndFilter()" formControlName="filterValue" />
             </form>
         </div>
         <div class="contacts">
             <div *ngIf="contactBehaviourSubject | async as contacts">
                 <div *ngFor="let contact of contacts">
-                    <div [ngStyle]="{'background-color': contact.selected ? '#82f4fa' : '#cef3f5'}" class="contactBox" (click)="displayDetails(contact)">
+                    <div class="contactBox" [ngStyle]="{'background-color': contact.selected ? '#82f4fa' : '#cef3f5'}" (click)="displayDetails(contact)">
                         <span class="dot smallDot" [ngStyle]="{ 'background-color': utilitiesService.generateColourFromName(contact.name, 50) }">{{utilitiesService.getInitials(contact.name)}}</span>
                         <div>
                             <div>{{contact.name}}</div>

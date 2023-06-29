@@ -14,16 +14,13 @@ import { UtilitiesService } from 'src/app/services/utilities.service';
 })
 export class ContactsComponent implements OnInit {
 
-  originalContactList: Contact[] = [];
-  contactList: Contact[] = []; // This is necessary so that the list can be modified while sorted/filtered
+  // Used to display 
   contactBehaviourSubject: BehaviorSubject<Contact[]> = new BehaviorSubject([new Contact()]);
   detailsBehaviourSubject: BehaviorSubject<Contact> = new BehaviorSubject(new Contact());
-  selectedID: number = 0;
 
-  currentDialog?: MatDialogRef<ContactModalComponent>;
-
-  failed = false;
-
+  originalContactList: Contact[] = [];
+  contactList: Contact[] = []; // This is necessary so that the list can be modified while sorted/filtered
+  
   ascending = true;
   currentFilterValue: string = '';
 
@@ -31,16 +28,17 @@ export class ContactsComponent implements OnInit {
     filterValue: new FormControl()
   });
 
+  selectedID: number = 0;
+
+  currentDialog?: MatDialogRef<ContactModalComponent>;
+
   constructor(private backendCalls: BackendCallsService, public dialog: MatDialog, public utilitiesService: UtilitiesService) { }
 
   ngOnInit(): void {
-    try {
-      this.getContacts();
-    } catch {
-      this.failed = true;
-    }
+    this.getContacts();
   }
 
+  // After fetching, immediately sort and select the first contact to display
   async getContacts() {
     this.originalContactList = await this.backendCalls.getContacts();
     this.contactList = this.sortAndFilterList(this.originalContactList, '');
@@ -65,6 +63,7 @@ export class ContactsComponent implements OnInit {
 
     this.contactBehaviourSubject.next(this.contactList);
 
+    // Only open modals when the page is small enough
     if(window.innerWidth < 1000) {
       this.currentDialog = this.dialog.open(ContactModalComponent, { data: { contact: contact } });
     }
@@ -72,7 +71,7 @@ export class ContactsComponent implements OnInit {
     this.detailsBehaviourSubject.next(contact);
   }
 
-  submit() {
+  applySortAndFilter() {
     this.currentFilterValue = this.filterFormGroup.value.filterValue;
     this.contactList = this.sortAndFilterList(this.originalContactList, this.currentFilterValue);
     this.contactBehaviourSubject.next(this.contactList);
@@ -81,6 +80,7 @@ export class ContactsComponent implements OnInit {
   sortAndFilterList(contactsToSortAndFilter: Contact[], filterBy: string) {
     let deepCopyToModify: Contact[] = JSON.parse(JSON.stringify(contactsToSortAndFilter));
 
+    // Filter
     deepCopyToModify = deepCopyToModify.filter((contact: Contact) => {
       return contact.name.toLowerCase().includes(filterBy.toLowerCase());
     });
@@ -100,6 +100,7 @@ export class ContactsComponent implements OnInit {
       return first.localeCompare(second);
     });
 
+    // Reselect the current selected contact if it's in the sorted list
     deepCopyToModify.map((contact: Contact) => {
       if(contact.id === this.selectedID) {
         contact.selected = true;
@@ -107,14 +108,6 @@ export class ContactsComponent implements OnInit {
     })
 
     return deepCopyToModify;
-  }
-
-  printContacts() {
-    console.log(this.contactList);
-  }
-
-  printColour() {
-    console.log(this.utilitiesService.generateColourFromName('colour'));
   }
 
   toggleSort() {

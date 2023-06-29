@@ -11,7 +11,6 @@ export class BackendCallsService {
   constructor() { }
 
   async getContacts() {
-    // I generally prefer to do my error handling on the backend.
     const response = await fetch(this.APIUrl);
     const data = await response.json();
     const contacts: Contact[] = [];
