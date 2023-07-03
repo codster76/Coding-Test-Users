@@ -18,8 +18,8 @@ export class ContactsComponent implements OnInit {
   contactBehaviourSubject: BehaviorSubject<Contact[]> = new BehaviorSubject([new Contact()]);
   detailsBehaviourSubject: BehaviorSubject<Contact> = new BehaviorSubject(new Contact());
 
-  originalContactList: Contact[] = [];
-  contactList: Contact[] = []; // This is necessary so that the list can be modified while sorted/filtered
+  originalContactList: Contact[] = []; // A copy of the original list for duplication or resetting the list.
+  contactList: Contact[] = []; // A copy of the list to be sorted and modified.
   
   ascending = true;
   currentFilterValue: string = '';
@@ -85,7 +85,7 @@ export class ContactsComponent implements OnInit {
       return contact.name.toLowerCase().includes(filterBy.toLowerCase());
     });
 
-    // Sort based on the ascending variable
+    // Sort
     deepCopyToModify.sort((a: Contact, b: Contact) => {
       let first;
       let second;

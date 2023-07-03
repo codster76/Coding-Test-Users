@@ -4,6 +4,8 @@ import { Contact } from '../data-model';
 @Injectable({
   providedIn: 'root'
 })
+
+// Globally-accessible service for interacting with the backend. Would have many more functions in a regular app.
 export class BackendCallsService {
 
   APIUrl = 'https://jsonplaceholder.typicode.com/users';
